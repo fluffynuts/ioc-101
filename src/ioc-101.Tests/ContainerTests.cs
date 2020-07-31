@@ -36,6 +36,24 @@ namespace ioc_101.Tests
                 .To.Be.An.Instance.Of<DogFarm>();
         }
 
+        [Test]
+        public void ShouldBeAbleToConstructASingleton()
+        {
+            // Arrange
+            var container = new Container();
+            container.Register<IDoggo, Doggo>(Lifetime.Singleton);
+            // Act
+            var dog1 = container.Resolve<IDoggo>();
+            var dog2 = container.Resolve<IDoggo>();
+            // Assert
+            Expect(dog1)
+                .To.Be.An.Instance.Of<Doggo>();
+            Expect(dog2)
+                .To.Be.An.Instance.Of<Doggo>();
+            Expect(dog1)
+                .To.Be(dog2);
+        }
+
         public interface IDogFarm
         {
         }
